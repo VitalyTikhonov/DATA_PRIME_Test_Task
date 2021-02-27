@@ -1,0 +1,165 @@
+$taskCheckboxLeftMargin: 30px;
+
+@keyframes blobIn {
+  to {
+    margin-left: $taskCheckboxLeftMargin;
+  }
+}
+
+.task {
+  width: 1052px;
+  height: 103px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 17px $taskCheckboxLeftMargin 17px 0;
+  border-radius: 30px;
+  background: white;
+  box-shadow: 5px 50px 100px rgba(0, 0, 0, 0.1);
+
+  &_type_template {
+    background: #c7c9d3;
+    box-shadow: none;
+    padding-left: $taskCheckboxLeftMargin;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.task__form {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+$animatedObjectWidth: 43px;
+
+.task__checkbox {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-right: 23px;
+  /* for animation */
+  margin-left: calc(-#{$taskCheckboxLeftMargin} - #{$animatedObjectWidth});
+  animation-name: blobIn;
+  animation-duration: 1s;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+
+  // animation-play-state: paused;
+  // .task:hover & {
+  //   animation-play-state: running;
+  // }
+
+  &-pseudo {
+    width: $animatedObjectWidth;
+    height: 43px;
+    border-radius: 12px;
+    cursor: pointer;
+    background-color: #eae9ea;
+  }
+
+  &-proper {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+
+    /*checked*/
+    // &:checked + .task__checkbox-pseudo {
+    //   background-color: #72b62b;
+    //   background-image: ...;
+    //   background-size: contain;
+    //   background-repeat: no-repeat;
+    //   background-position: center;
+    // }
+
+    /*focus*/
+    // &:focus + .task__checkbox-pseudo {
+    //   box-shadow: 0 0 0 3px rgba(254, 39, 39, 0.3);
+    // }
+
+    /*disabled*/
+    // &:disabled + .task__checkbox-pseudo {
+    //   border: 1px solid #bbc1e1;
+    //   cursor: not-allowed;
+    // }
+
+    /*disabled and checked*/
+    // &:checked:disabled + .task__checkbox-pseudo {
+    //   background-color: #e1e6f9;
+    // }
+  }
+}
+
+.task__text-field {
+  background-color: inherit;
+  border: none;
+  outline: none;
+  font-size: 30px;
+  padding: 0;
+  color: #000000;
+
+  &::placeholder {
+    color: #9f9e9f;
+  }
+
+  &_type_in-template::placeholder {
+    // .task_type_template &::placeholder { но это хуже, если использовать БЭМ
+    color: #56595e;
+  }
+
+  &_type_task-name {
+    flex-grow: 1;
+  }
+
+  &_type_list-name {
+    margin: 0 20px;
+    width: 85px;
+
+    &::placeholder {
+      color: #47484b;
+    }
+  }
+}
+
+$taskBarBreadcrumbSize: 68px;
+
+%taskBarBreadcrumb {
+  height: $taskBarBreadcrumbSize;
+  margin-left: 16px;
+  border-radius: 18px;
+  background-color: #f2f4f4;
+}
+
+.task__calendar-widget-opener {
+  @extend %taskBarBreadcrumb;
+  width: $taskBarBreadcrumbSize;
+  border: none;
+  outline: none;
+}
+
+.task__dropdown {
+  box-sizing: border-box;
+  @extend %taskBarBreadcrumb;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20px;
+}
+
+.task__list-color {
+  box-sizing: border-box;
+  width: 21px;
+  height: 21px;
+  border-radius: 10px;
+  border: 4px solid #c7c8c9;
+}

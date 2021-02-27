@@ -1,0 +1,16 @@
+.app {
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  background-color: #dfdfe5;
+  justify-content: center;
+  align-items: center;
+}
+
+.task-list {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 20px;
+  list-style: none;
+}
