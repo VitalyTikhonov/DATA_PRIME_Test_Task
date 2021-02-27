@@ -1,4 +1,12 @@
 $taskCheckboxLeftMargin: 30px;
+// $task__text-field {
+%taskTextElement {
+  background-color: inherit;
+  border: none;
+  outline: none;
+  font-size: 30px;
+  padding: 0;
+}
 
 @keyframes blobIn {
   to {
@@ -21,12 +29,23 @@ $taskCheckboxLeftMargin: 30px;
   &_type_template {
     background: #c7c9d3;
     box-shadow: none;
-    padding-left: $taskCheckboxLeftMargin;
+    padding: 0;
   }
 
   &:last-child {
     margin-bottom: 0;
   }
+}
+
+.task__add-task-button {
+  @extend %taskTextElement;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  display: flex;
+  align-items: center;
+  color: #56595e;
+  padding-left: $taskCheckboxLeftMargin;
 }
 
 .task__form {
@@ -38,6 +57,8 @@ $taskCheckboxLeftMargin: 30px;
 
 $animatedObjectWidth: 43px;
 
+/* Далее применил и адаптировал одну увиденную мной схему для стилизации нативного чекбока.
+Оставляю правила для незаявленных в скринкасте состояний на всякий случай. */
 .task__checkbox {
   display: flex;
   align-items: center;
@@ -50,6 +71,7 @@ $animatedObjectWidth: 43px;
   animation-timing-function: ease;
   animation-fill-mode: forwards;
 
+  /* Для проверки анимации в режиме разработки */
   // animation-play-state: paused;
   // .task:hover & {
   //   animation-play-state: running;
@@ -101,20 +123,11 @@ $animatedObjectWidth: 43px;
 }
 
 .task__text-field {
-  background-color: inherit;
-  border: none;
-  outline: none;
-  font-size: 30px;
-  padding: 0;
+  @extend %taskTextElement;
   color: #000000;
 
   &::placeholder {
     color: #9f9e9f;
-  }
-
-  &_type_in-template::placeholder {
-    // .task_type_template &::placeholder { но это хуже, если использовать БЭМ
-    color: #56595e;
   }
 
   &_type_task-name {
