@@ -9,9 +9,10 @@ function Task(props) {
 
   const [inputStateValue, setInputStateValue] = useState('');
 
-  function handleInput(event) {
+  function handleFieldChange(event) {
     const { value } = event.target;
-    const myRegexp = /(.*)(\/\/)(.*)/;
+    // setInputStateValue(value);
+    const myRegexp = /(.*?)(\/\/)(.*)/;
     const matchResult = myRegexp.exec(value);
     let task = null;
     let commentMark = null;
@@ -23,14 +24,10 @@ function Task(props) {
     }
     if (commentMark) {
       setInputStateValue(`${task} COMMENT ${commentValue}`);
-      console.log('inputStateValue', inputStateValue);
-    // } else {
-    //   setInputStateValue(value);
+    } else {
+      setInputStateValue(value);
     }
-  }
-
-  function handleFieldChange(event) {
-    setInputStateValue(event.target.value);
+    console.log('matchResult', matchResult);
   }
 
   return (
@@ -46,7 +43,9 @@ function Task(props) {
       ) : (
         <form className="task__form">
           <label className="task__checkbox">
+            {/* реальная галка */}
             <input type="checkbox" className="task__checkbox-proper" />
+            {/* кастомная галка */}
             <span className="task__checkbox-pseudo"></span>
           </label>
 
@@ -56,7 +55,7 @@ function Task(props) {
             placeholder="Write a new task"
             value={inputStateValue}
             onChange={handleFieldChange}
-            onInput={handleInput}
+            // onInput={handleInput}
           />
 
           <button type="button" className="task__calendar-widget-opener">
