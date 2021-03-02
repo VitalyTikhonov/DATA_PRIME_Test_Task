@@ -1,13 +1,18 @@
-import './Task.scss';
-import { useState } from 'react';
-import calendarIcon from './calendar-icon.png';
-import arrowIcon from './down-arrow.png';
-import { saveToLocalStorage } from '../../utils/localStorageMethods';
+import "./Task.scss";
+import { useState, useRef } from "react";
+import calendarIcon from "./calendar-icon.png";
+import arrowIcon from "./down-arrow.png";
+import { saveToLocalStorage } from "../../utils/localStorageMethods";
 
 function Task(props) {
   const { isTemplate, onClick } = props;
 
-  const [inputStateValue, setInputStateValue] = useState('');
+  const [inputStateValue, setInputStateValue] = useState("");
+  const [commentInputAdded, setCommentInputAdded] = useState(false);
+  const [commentInputValue, setCommentInputValue] = useState("");
+
+  const textFieldWrapperRef = useRef();
+  const commentFieldRef = useRef();
 
   function handleFieldChange(event) {
     const { value } = event.target;
@@ -23,11 +28,16 @@ function Task(props) {
       commentValue = matchResult[3];
     }
     if (commentMark) {
-      setInputStateValue(`${task} COMMENT ${commentValue}`);
+      if (!commentInputAdded) {
+        commentFieldRef.current.focus();
+      }
+      setInputStateValue(task + commentMark);
+      // setCommentInputValue(commentValue);
+      // setInputStateValue(`${task} COMMENT ${commentValue}`);
     } else {
       setInputStateValue(value);
     }
-    console.log('matchResult', matchResult);
+    console.log("matchResult", matchResult);
   }
 
   return (
@@ -49,14 +59,22 @@ function Task(props) {
             <span className="task__checkbox-pseudo"></span>
           </label>
 
-          <input
-            type="text"
-            className="task__text-field task__text-field_type_task-name"
-            placeholder="Write a new task"
-            value={inputStateValue}
-            onChange={handleFieldChange}
-            // onInput={handleInput}
-          />
+          <label className="task__text-field-wrapper" ref={textFieldWrapperRef}>
+            <input
+              type="text"
+              className="task__text-field task__text-field_type_task-name"
+              placeholder="Write a new task"
+              value={inputStateValue}
+              onChange={handleFieldChange}
+              // onInput={handleInput}
+            />
+            <input
+              type="text"
+              className="task__text-field task__text-field_type_task-name"
+              ref={commentFieldRef}
+              value={commentInputValue}
+            />
+          </label>
 
           <button type="button" className="task__calendar-widget-opener">
             <img src={calendarIcon} alt="Значок календаря" />

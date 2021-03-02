@@ -122,6 +122,10 @@ $animatedObjectWidth: 43px;
   }
 }
 
+.task__text-field-wrapper {
+  flex-grow: 1;
+}
+
 .task__text-field {
   @extend %taskTextElement;
   color: #000000;
@@ -130,9 +134,9 @@ $animatedObjectWidth: 43px;
     color: #9f9e9f;
   }
 
-  &_type_task-name {
-    flex-grow: 1;
-  }
+  // &_type_task-name {
+  //   flex-grow: 1;
+  // }
 
   &_type_list-name {
     margin: 0 20px;
