@@ -7,18 +7,22 @@ import { saveToLocalStorage } from "../../utils/localStorageMethods";
 function Task(props) {
   const { isTemplate, onClick } = props;
 
-  const [inputStateValue, setInputStateValue] = useState("");
-  const [commentInputAdded, setCommentInputAdded] = useState(false);
+  const [taskNameInputValue, setTaskNameInputValue] = useState("");
   const [commentInputValue, setCommentInputValue] = useState("");
 
   const textFieldWrapperRef = useRef();
   const commentFieldRef = useRef();
 
-  function handleFieldChange(event) {
+  function handleTaskCommentFieldChange(event) {
     const { value } = event.target;
-    // setInputStateValue(value);
-    const myRegexp = /(.*?)(\/\/)(.*)/;
-    const matchResult = myRegexp.exec(value);
+    setCommentInputValue(value);
+  }
+
+  function handleTaskNameFieldChange(event) {
+    const { value } = event.target;
+    const valueNormalized = value.replace(/\s+/g, ' ');
+    const myRegexp = /(.*?)(\/\/) ?(.*)/;
+    let matchResult = myRegexp.exec(valueNormalized);
     let task = null;
     let commentMark = null;
     let commentValue = null;
@@ -28,16 +32,16 @@ function Task(props) {
       commentValue = matchResult[3];
     }
     if (commentMark) {
-      if (!commentInputAdded) {
-        commentFieldRef.current.focus();
-      }
-      setInputStateValue(task + commentMark);
-      // setCommentInputValue(commentValue);
-      // setInputStateValue(`${task} COMMENT ${commentValue}`);
-    } else {
-      setInputStateValue(value);
+      commentFieldRef.current.focus();
+      setTaskNameInputValue(task + commentMark);
+      setCommentInputValue(commentValue);
     }
-    console.log("matchResult", matchResult);
+    setTaskNameInputValue(valueNormalized);
+  }
+
+  /* для вставки в спаны-подложки значений, точно задающих ширину */
+  function replaceSpacesWithUnderscores(string) {
+    return string.replace(/\s+/g, '_');
   }
 
   return (
@@ -59,21 +63,34 @@ function Task(props) {
             <span className="task__checkbox-pseudo"></span>
           </label>
 
-          <label className="task__text-field-wrapper" ref={textFieldWrapperRef}>
-            <input
-              type="text"
-              className="task__text-field task__text-field_type_task-name"
-              placeholder="Write a new task"
-              value={inputStateValue}
-              onChange={handleFieldChange}
-              // onInput={handleInput}
-            />
-            <input
-              type="text"
-              className="task__text-field task__text-field_type_task-name"
-              ref={commentFieldRef}
-              value={commentInputValue}
-            />
+          <label className="task__field" ref={textFieldWrapperRef}>
+            <div className="task__field-width-assembly">
+              <span class="task__field-width-machine" aria-hidden="true">
+                {taskNameInputValue ? replaceSpacesWithUnderscores(taskNameInputValue) : "Write a new task"}
+              </span>
+
+              <input
+                type="text"
+                className="task__field-proper task__field-proper_type_task task__field-proper_type_task-name"
+                placeholder="Write a new task"
+                value={taskNameInputValue}
+                onChange={handleTaskNameFieldChange}
+              />
+            </div>
+
+            <div className="task__field-width-assembly">
+              <span class="task__field-width-machine" aria-hidden="true">
+                {replaceSpacesWithUnderscores(commentInputValue)}
+              </span>
+
+              <input
+                type="text"
+                className="task__field-proper task__field-proper_type_task task__field-proper_type_task-comment"
+                ref={commentFieldRef}
+                value={commentInputValue}
+                onChange={handleTaskCommentFieldChange}
+              />
+            </div>
           </label>
 
           <button type="button" className="task__calendar-widget-opener">
@@ -84,7 +101,7 @@ function Task(props) {
             <span className="task__list-color"></span>
             <input
               type="text"
-              className="task__text-field task__text-field_type_list-name"
+              className="task__field-proper task__field-proper_type_list-name"
               placeholder="No list"
             ></input>
             <img
