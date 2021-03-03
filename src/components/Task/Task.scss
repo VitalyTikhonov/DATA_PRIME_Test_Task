@@ -170,10 +170,18 @@ $animatedObjectWidth: 43px;
   display: flex;
   align-items: center;
   @extend %taskFieldTypographics;
+
+  &_type_comment {
+    flex-grow: 1;
+  }
 }
 
 .task__field-width-machine {
   color: transparent;
+
+  &_type_comment {
+    width: auto;
+  }
 }
 
 .task__field-proper {
@@ -247,6 +255,7 @@ $taskBarBreadcrumbSize: 68px;
   width: $taskBarBreadcrumbSize;
   border: none;
   outline: none;
+  cursor: pointer;
 }
 
 .task__dropdown {

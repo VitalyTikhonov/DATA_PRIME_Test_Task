@@ -91,10 +91,10 @@ function Task(props) {
         event.target === commentFieldRef.current &&
         !event.target.value &&
         event.key === "Backspace"
-        ) {
-          setShowSlashSeparator(false);
-          setTaskNameInputValue(taskNameInputValue + " ");
-          taskNameFieldRef.current.focus();
+      ) {
+        setShowSlashSeparator(false);
+        setTaskNameInputValue(taskNameInputValue + " ");
+        taskNameFieldRef.current.focus();
       }
     }
 
@@ -153,10 +153,21 @@ function Task(props) {
               </span>
             )}
 
-            <div className="task__field-width-assembly">
-              <span className="task__field-width-machine" aria-hidden="true">
-                {commentSpanValue ? commentSpanValue : "write a note"}
-              </span>
+            <div
+              className={`task__field-width-assembly${
+                showSlashSeparator
+                  ? " task__field-width-assembly_type_comment"
+                  : ""
+              }`}
+            >
+              {showSlashSeparator && (
+                <span
+                  className="task__field-width-machine task__field-width-machine_type_comment"
+                  aria-hidden="true"
+                >
+                  {/* {commentSpanValue ? commentSpanValue : "write a note"} */}
+                </span>
+              )}
 
               <input
                 name="commentInput"
