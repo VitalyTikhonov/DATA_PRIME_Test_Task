@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
 import "./Task.scss";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import calendarIcon from "./calendar-icon.png";
 import arrowIcon from "./down-arrow.png";
 // import { saveToLocalStorage } from "../../utils/localStorageMethods";
@@ -17,6 +17,7 @@ function Task(props) {
   const [showSlashSeparator, setShowSlashSeparator] = useState(false);
 
   const textFieldWrapperRef = useRef();
+  const taskNameFieldRef = useRef();
   const commentFieldRef = useRef();
 
   function parseInputValue(value) {
@@ -84,6 +85,26 @@ function Task(props) {
     setCommentInputValue(value);
   }
 
+  useEffect(() => {
+    function handleBackspacePressing(event) {
+      if (
+        event.target === commentFieldRef.current &&
+        !event.target.value &&
+        event.key === "Backspace"
+        ) {
+          setShowSlashSeparator(false);
+          setTaskNameInputValue(taskNameInputValue + " ");
+          taskNameFieldRef.current.focus();
+      }
+    }
+
+    document.addEventListener("keydown", handleBackspacePressing);
+
+    return () => {
+      document.removeEventListener("keydown", handleBackspacePressing);
+    };
+  });
+
   return (
     <li
       className={`task${showSlashSeparator ? " task_commented" : ""}${
@@ -118,6 +139,7 @@ function Task(props) {
                 type="text"
                 className="task__field-proper task__field-proper_type_task task__field-proper_type_name"
                 placeholder="Write a new task"
+                ref={taskNameFieldRef}
                 value={taskNameInputValue}
                 onChange={handleTaskNameFieldChange}
                 onBlur={normalizeTaskFieldOnBlur}
