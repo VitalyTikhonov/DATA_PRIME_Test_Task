@@ -31,10 +31,13 @@ $taskCheckboxLeftMargin: 30px;
   }
 }
 
+@keyframes dimTask {
+  to {
+    background-position: 0% 100%;
+  }
+}
+
 @keyframes textclip {
-  // from {
-  // 	background-position: 100% center;
-  // }
   to {
     background-position: 0% center;
   }
@@ -62,7 +65,13 @@ $taskCheckboxLeftMargin: 30px;
   }
 
   &_commented {
-    background: linear-gradient(180deg, #ffffff 0%, #f8f3e9 100%);
+    background: linear-gradient(180deg, #ffffff 64%, #f8f3e9 91%);
+    // background: linear-gradient(180deg, #ffffff 40%, blue 80%);
+    background-size: auto 200%;
+    background-position: 0% 0%;
+
+    animation: dimTask .5s linear;
+    animation-fill-mode: forwards;
   }
 }
 
@@ -161,8 +170,6 @@ $animatedObjectWidth: 43px;
   position: relative;
   display: flex;
   align-items: center;
-  // font-size: 30px;
-  // line-height: 1.2; ///////////////////////
   @extend %taskFieldTypographics;
 }
 
@@ -172,7 +179,6 @@ $animatedObjectWidth: 43px;
 
 .task__field-proper {
   @extend %taskTextElement;
-  // color: #000000; ///////////////////////////
   @extend %taskFieldTypographics;
 
   &_type_task {
