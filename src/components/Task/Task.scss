@@ -8,6 +8,15 @@ $taskCheckboxLeftMargin: 30px;
   padding: 0;
 }
 
+%taskFieldTypographics {
+  font-family: 'Roboto', serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 30px;
+  line-height: 1.2;
+  color: #000000;
+}
+
 @keyframes blobIn {
   to {
     margin-left: $taskCheckboxLeftMargin;
@@ -123,6 +132,7 @@ $animatedObjectWidth: 43px;
 
 .task__field {
   display: flex;
+  align-items: center;
   flex-grow: 1;
 }
 
@@ -130,8 +140,9 @@ $animatedObjectWidth: 43px;
   position: relative;
   display: flex;
   align-items: center;
-  font-size: 30px;
-  line-height: 1.2;
+  // font-size: 30px;
+  // line-height: 1.2; ///////////////////////
+  @extend %taskFieldTypographics;
 }
 
 .task__field-width-machine {
@@ -140,7 +151,8 @@ $animatedObjectWidth: 43px;
 
 .task__field-proper {
   @extend %taskTextElement;
-  color: #000000;
+  // color: #000000; ///////////////////////////
+  @extend %taskFieldTypographics;
 
   &::placeholder {
     color: #9f9e9f;
@@ -160,6 +172,10 @@ $animatedObjectWidth: 43px;
       color: #47484b;
     }
   }
+}
+
+.task__field-slash-separator {
+  @extend %taskFieldTypographics;
 }
 
 $taskBarBreadcrumbSize: 68px;
