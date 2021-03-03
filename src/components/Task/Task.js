@@ -23,8 +23,8 @@ function Task(props) {
     const myRegexp = /(.*?)(\/\/) ?.*/;
     let matchResult = myRegexp.exec(value);
     return matchResult
-    /* Здесь не должно быть trim(), иначе невозможно ввести в поле пробел */
-      ? {
+      ? /* Здесь не должно быть trim(), иначе невозможно ввести в поле пробел */
+        {
           task: matchResult[1],
           commentMark: matchResult[2],
           // commentValue: matchResult[3],
@@ -65,9 +65,7 @@ function Task(props) {
   function handleTaskNameFieldChange(event) {
     const { value } = event.target;
     const valueNormalized = value.replace(/\s+/g, " ");
-    const { task, commentMark } = parseInputValue(
-      valueNormalized
-    );
+    const { task, commentMark } = parseInputValue(valueNormalized);
 
     setTaskNameSpanValue(replaceSpaces(task));
     setTaskNameInputValue(task);
@@ -75,7 +73,7 @@ function Task(props) {
     if (commentMark) {
       setShowSlashSeparator(true);
 
-      setCommentSpanValue(".");
+      // setCommentSpanValue(".");
       commentFieldRef.current.focus();
     }
   }
@@ -87,7 +85,11 @@ function Task(props) {
   }
 
   return (
-    <li className={`task${isTemplate ? " task_type_template" : ""}`}>
+    <li
+      className={`task${showSlashSeparator ? " task_commented" : ""}${
+        isTemplate ? " task_type_template" : ""
+      }`}
+    >
       {isTemplate ? (
         <button
           type="button"
@@ -114,7 +116,7 @@ function Task(props) {
               <input
                 name="taskNameInput"
                 type="text"
-                className="task__field-proper task__field-proper_type_task task__field-proper_type_task-name"
+                className="task__field-proper task__field-proper_type_task task__field-proper_type_name"
                 placeholder="Write a new task"
                 value={taskNameInputValue}
                 onChange={handleTaskNameFieldChange}
@@ -131,13 +133,19 @@ function Task(props) {
 
             <div className="task__field-width-assembly">
               <span className="task__field-width-machine" aria-hidden="true">
-                {commentSpanValue ? commentSpanValue : ""}
+                {commentSpanValue ? commentSpanValue : "write a note"}
               </span>
 
               <input
                 name="commentInput"
                 type="text"
-                className="task__field-proper task__field-proper_type_task task__field-proper_type_task-comment"
+                className={`task__field-proper task__field-proper_type_task task__field-proper_type_comment${
+                  showSlashSeparator
+                    ? " task__field-proper_animate-placeholder"
+                    : ""
+                }`}
+                // className="task__field-proper task__field-proper_type_task task__field-proper_type_comment"
+                placeholder="write a note"
                 ref={commentFieldRef}
                 value={commentInputValue}
                 onChange={handleTaskCommentFieldChange}

@@ -9,17 +9,34 @@ $taskCheckboxLeftMargin: 30px;
 }
 
 %taskFieldTypographics {
-  font-family: 'Roboto', serif;
+  font-family: "Roboto", serif;
   font-weight: 400;
   font-style: normal;
   font-size: 30px;
   line-height: 1.2;
-  color: #000000;
 }
 
 @keyframes blobIn {
   to {
     margin-left: $taskCheckboxLeftMargin;
+  }
+}
+
+@keyframes showSlashes {
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes textclip {
+  // from {
+  // 	background-position: 100% center;
+  // }
+  to {
+    background-position: 0% center;
   }
 }
 
@@ -42,6 +59,10 @@ $taskCheckboxLeftMargin: 30px;
 
   &:last-child {
     margin-bottom: 0;
+  }
+
+  &_commented {
+    background: linear-gradient(180deg, #ffffff 0%, #f8f3e9 100%);
   }
 }
 
@@ -154,14 +175,41 @@ $animatedObjectWidth: 43px;
   // color: #000000; ///////////////////////////
   @extend %taskFieldTypographics;
 
-  &::placeholder {
-    color: #9f9e9f;
-  }
-
   &_type_task {
     position: absolute;
     width: 100%;
     left: 0;
+  }
+
+  &_type_name {
+    color: #000000;
+
+    &::placeholder {
+      color: #9f9e9f;
+    }
+  }
+
+  &_animate-placeholder {
+    background: linear-gradient(to right, #c5bba6 0%, transparent 60%);
+    background-size: auto auto;
+    background-clip: border-box;
+    background-position: 100% center;
+    background-size: 250% auto;
+    // color: #fff;
+    background-clip: text;
+    -webkit-background-clip: text;
+
+    animation: textclip 1.2s linear;
+    animation-fill-mode: forwards;
+  }
+
+  &_type_comment {
+    color: #744b11;
+
+    &::placeholder {
+      text-fill-color: transparent;
+      -webkit-text-fill-color: transparent;
+    }
   }
 
   &_type_list-name {
@@ -169,13 +217,15 @@ $animatedObjectWidth: 43px;
     width: 85px;
 
     &::placeholder {
-      color: #47484b;
+      color: #7a7c80;
     }
   }
 }
 
 .task__field-slash-separator {
   @extend %taskFieldTypographics;
+  animation: showSlashes 0.7s linear;
+  color: #744b11;
 }
 
 $taskBarBreadcrumbSize: 68px;
