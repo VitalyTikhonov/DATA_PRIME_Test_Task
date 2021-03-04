@@ -76,14 +76,14 @@
   overflow: hidden;
 }
 
-/* Далее применил и адаптировал одну увиденную мной схему для стилизации нативного чекбока.
+/* Далее применил и адаптировал одну увиденную мной схему для стилизации нативного чекбокса.
 Оставляю правила для незаявленных в скринкасте состояний на всякий случай. */
 .task__checkbox {
   display: flex;
   align-items: center;
   position: relative;
   margin-right: 23px;
-  /* for animation */
+  /* Для анимации */
   margin-left: calc(-#{$taskCheckboxLeftMargin} - #{$animatedObjectWidth});
   animation-name: blobIn;
   animation-duration: 1s;
@@ -145,7 +145,13 @@
   display: flex;
   align-items: center;
   flex-grow: 1;
-  max-width: 622px;
+
+  // max-width: 622px;
+  /* Частично решает проблемы растягивания текста при некоторых настройках,
+  но приводит к тому, что календарь и дропдаун категории таски выезжают по анимации
+  вместе с галкой выполнения и текстовыми полями, что не по ТЗ.
+  Проблемы растягивания текста пока все равно не решены полностью, поэтому отключаю. */
+
   overflow: hidden;
 }
 
@@ -208,7 +214,7 @@
       -webkit-text-fill-color: transparent;
     }
 
-    /* ДЛЯ РЕШЕНИЯ С TEXTAREA */
+    /* ДЛЯ РЕШЕНИЯ С TEXTAREA, нескорректировано */
     // display: block;
     // width: 100%;
     // overflow: hidden;

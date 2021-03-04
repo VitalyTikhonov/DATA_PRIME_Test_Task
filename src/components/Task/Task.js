@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-comment-textnodes */
 import "./Task.scss";
 import { useState, useRef, useEffect } from "react";
 import calendarIcon from "./calendar-icon.png";
@@ -81,6 +80,8 @@ function Task(props) {
     }
   }
 
+  /* Заготовка для динамического ресайзинга поля для комментария.
+  На основе все того же решения из Интернета - см. сслку в App. */
   function calcHeight(value) {
     const taskFieldFontSize = parseInt(TASK_FIELD_FONT_SIZE, 10);
     const taskFieldLineHeight = parseInt(TASK_FIELD_LINE_HEIGHT, 10);
@@ -93,6 +94,7 @@ function Task(props) {
     return newHeight;
   }
 
+  /* Заменить на реф. */
   // let textarea = document.querySelector(".resize-ta");
   // textarea.addEventListener("keyup", () => {
   //   textarea.style.height = calcHeight(textarea.value) + "px";
@@ -205,7 +207,6 @@ function Task(props) {
                     ? " task__field-proper_animate-placeholder"
                     : ""
                 }`}
-                // className="task__field-proper task__field-proper_type_task task__field-proper_type_comment"
                 placeholder="write a note"
                 ref={commentFieldRef}
                 value={commentInputValue}
