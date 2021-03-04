@@ -1,20 +1,4 @@
-$taskCheckboxLeftMargin: 30px;
-// $task__field-proper {
-%taskTextElement {
-  background-color: inherit;
-  border: none;
-  outline: none;
-  font-size: 30px;
-  padding: 0;
-}
-
-%taskFieldTypographics {
-  font-family: "Roboto", serif;
-  font-weight: 400;
-  font-style: normal;
-  font-size: 30px;
-  line-height: 1.2;
-}
+@import '../../css-variables.scss';
 
 @keyframes blobIn {
   to {
@@ -91,8 +75,6 @@ $taskCheckboxLeftMargin: 30px;
   align-items: center;
   overflow: hidden;
 }
-
-$animatedObjectWidth: 43px;
 
 /* Далее применил и адаптировал одну увиденную мной схему для стилизации нативного чекбока.
 Оставляю правила для незаявленных в скринкасте состояний на всякий случай. */
@@ -239,15 +221,6 @@ $animatedObjectWidth: 43px;
   @extend %taskFieldTypographics;
   animation: showSlashes 0.7s linear;
   color: #744b11;
-}
-
-$taskBarBreadcrumbSize: 68px;
-
-%taskBarBreadcrumb {
-  height: $taskBarBreadcrumbSize;
-  margin-left: 16px;
-  border-radius: 18px;
-  background-color: #f2f4f4;
 }
 
 .task__calendar-widget-opener {

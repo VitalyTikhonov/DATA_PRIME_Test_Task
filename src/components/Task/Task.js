@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import calendarIcon from "./calendar-icon.png";
 import arrowIcon from "./down-arrow.png";
 // import { saveToLocalStorage } from "../../utils/localStorageMethods";
+import { TASK_FIELD_LINE_HEIGHT } from "../../css-variables-export-to-js.module.scss";
 
 function Task(props) {
   const { isTemplate, onClick } = props;
@@ -18,6 +19,7 @@ function Task(props) {
 
   const textFieldWrapperRef = useRef();
   const taskNameFieldRef = useRef();
+  const commentWidthMachineRef = useRef();
   const commentFieldRef = useRef();
 
   function parseInputValue(value) {
@@ -83,7 +85,26 @@ function Task(props) {
     const { value } = event.target;
     setCommentSpanValue(replaceSpaces(value));
     setCommentInputValue(value);
+    if (
+      getComputedStyle(commentWidthMachineRef.current).width >=
+      getComputedStyle(commentFieldRef.current).width
+    ) {
+      console.log('wide');
+    }
+    console.log('TASK_FIELD_LINE_HEIGHT', TASK_FIELD_LINE_HEIGHT, typeof TASK_FIELD_LINE_HEIGHT);
   }
+
+  // function calcHeight(value) {
+  //   let numberOfLineBreaks = (value.match(/\n/g) || []).length;
+  //   // min-height + lines x line-height + padding + border
+  //   let newHeight = 20 + numberOfLineBreaks * 20 + 12 + 2;
+  //   return newHeight;
+  // }
+
+  // let textarea = document.querySelector(".resize-ta");
+  // textarea.addEventListener("keyup", () => {
+  //   textarea.style.height = calcHeight(textarea.value) + "px";
+  // });
 
   useEffect(() => {
     function handleBackspacePressing(event) {
@@ -164,8 +185,9 @@ function Task(props) {
                 <span
                   className="task__field-width-machine task__field-width-machine_type_comment"
                   aria-hidden="true"
+                  ref={commentWidthMachineRef}
                 >
-                  {/* {commentSpanValue ? commentSpanValue : "write a note"} */}
+                  {commentSpanValue ? commentSpanValue : "write a note"}
                 </span>
               )}
 

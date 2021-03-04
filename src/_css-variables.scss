@@ -1,0 +1,31 @@
+$taskCheckboxLeftMargin: 30px;
+$taskTextFS: 30px;
+$taskTextLH: 1.2;
+// $taskTextLHCalculated: calc(#{$taskTextFS} * #{$taskTextLH});
+
+%taskTextElement {
+  background-color: inherit;
+  border: none;
+  outline: none;
+  font-size: $taskTextFS;
+  padding: 0;
+}
+
+%taskFieldTypographics {
+  font-family: "Roboto", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: $taskTextFS;
+  line-height: $taskTextLH;
+}
+
+$animatedObjectWidth: 43px;
+
+$taskBarBreadcrumbSize: 68px;
+
+%taskBarBreadcrumb {
+  height: $taskBarBreadcrumbSize;
+  margin-left: 16px;
+  border-radius: 18px;
+  background-color: #f2f4f4;
+}
