@@ -1,5 +1,7 @@
 @import 'css-variables';
 
 :export {
-  TASK_FIELD_LINE_HEIGHT: calc(#{$taskTextFS} * #{$taskTextLH});
+  TASK_FIELD_FONT_SIZE: $taskTextFS;
+  TASK_FIELD_LINE_HEIGHT: $taskTextLH;
+  // TASK_FIELD_LINE_HEIGHT: calc(#{$taskTextFS} * #{$taskTextLH});
 }

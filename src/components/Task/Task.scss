@@ -1,4 +1,4 @@
-@import '../../css-variables.scss';
+@import "../../css-variables.scss";
 
 @keyframes blobIn {
   to {
@@ -29,7 +29,7 @@
 
 .task {
   width: 1052px;
-  height: 103px;
+  min-height: 103px;
   margin-bottom: 15px;
   display: flex;
   align-items: center;
@@ -53,7 +53,7 @@
     background-size: auto 200%;
     background-position: 0% 0%;
 
-    animation: dimTask .5s linear;
+    animation: dimTask 0.5s linear;
     animation-fill-mode: forwards;
   }
 }
@@ -145,6 +145,8 @@
   display: flex;
   align-items: center;
   flex-grow: 1;
+  max-width: 622px;
+  overflow: hidden;
 }
 
 .task__field-width-assembly {
@@ -205,6 +207,14 @@
       text-fill-color: transparent;
       -webkit-text-fill-color: transparent;
     }
+
+    /* ДЛЯ РЕШЕНИЯ С TEXTAREA */
+    // display: block;
+    // width: 100%;
+    // overflow: hidden;
+    // resize: both;
+    // min-height: 40px;
+    // line-height: 20px;
   }
 
   &_type_list-name {

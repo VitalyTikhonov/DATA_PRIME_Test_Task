@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import calendarIcon from "./calendar-icon.png";
 import arrowIcon from "./down-arrow.png";
 // import { saveToLocalStorage } from "../../utils/localStorageMethods";
-import { TASK_FIELD_LINE_HEIGHT } from "../../css-variables-export-to-js.module.scss";
+import { TASK_FIELD_FONT_SIZE, TASK_FIELD_LINE_HEIGHT } from "../../css-variables-export-to-js.module.scss";
 
 function Task(props) {
   const { isTemplate, onClick } = props;
@@ -81,6 +81,23 @@ function Task(props) {
     }
   }
 
+  function calcHeight(value) {
+    const taskFieldFontSize = parseInt(TASK_FIELD_FONT_SIZE, 10);
+    const taskFieldLineHeight = parseInt(TASK_FIELD_LINE_HEIGHT, 10);
+    const inputHeight = taskFieldFontSize * taskFieldLineHeight;
+    console.log('inputHeight', inputHeight);
+
+    let numberOfLineBreaks = (value.match(/\n/g) || []).length;
+    // min-height + lines x line-height + padding + border
+    let newHeight = inputHeight + numberOfLineBreaks * inputHeight;
+    return newHeight;
+  }
+
+  // let textarea = document.querySelector(".resize-ta");
+  // textarea.addEventListener("keyup", () => {
+  //   textarea.style.height = calcHeight(textarea.value) + "px";
+  // });
+
   function handleTaskCommentFieldChange(event) {
     const { value } = event.target;
     setCommentSpanValue(replaceSpaces(value));
@@ -91,20 +108,7 @@ function Task(props) {
     ) {
       console.log('wide');
     }
-    console.log('TASK_FIELD_LINE_HEIGHT', TASK_FIELD_LINE_HEIGHT, typeof TASK_FIELD_LINE_HEIGHT);
   }
-
-  // function calcHeight(value) {
-  //   let numberOfLineBreaks = (value.match(/\n/g) || []).length;
-  //   // min-height + lines x line-height + padding + border
-  //   let newHeight = 20 + numberOfLineBreaks * 20 + 12 + 2;
-  //   return newHeight;
-  // }
-
-  // let textarea = document.querySelector(".resize-ta");
-  // textarea.addEventListener("keyup", () => {
-  //   textarea.style.height = calcHeight(textarea.value) + "px";
-  // });
 
   useEffect(() => {
     function handleBackspacePressing(event) {
@@ -192,7 +196,9 @@ function Task(props) {
               )}
 
               <input
+              // <textarea
                 name="commentInput"
+                // rows="3"
                 type="text"
                 className={`task__field-proper task__field-proper_type_task task__field-proper_type_comment${
                   showSlashSeparator
